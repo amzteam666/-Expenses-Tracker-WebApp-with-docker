@@ -6,8 +6,9 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: Test@123
       MYSQL_DATABASE: expenses_tracker
+      MYSQL_ROOT_HOST: "%"           
     volumes:
-      - ./mysql-data:/var/lib/mysql
+      - mysql-data:/var/lib/mysql    
     networks:
       - appbridge
     healthcheck:
@@ -30,7 +31,8 @@ services:
     networks:
       - appbridge
     depends_on:
-      - mysql
+      mysql:
+        condition: service_healthy   
     restart: always
 
 networks:
